@@ -1,16 +1,29 @@
 import React from 'react';
+import axios from 'axios';
+
+import UserCard from './UserCard';
 
 class GetUsers extends React.Component {
   state = {
     users: []
   };
 
-  componentDidMount() {}
+  componentDidMount() {
+    axios
+      .get('https://api.github.com/users/karkisunil1200')
+      .then(response => {
+        console.log(response.data);
+        this.setState({users: response.data});
+      })
+      .catch(error => {
+        console.log(error);
+      });
+  }
 
   render() {
     return (
       <div>
-        <h5>This is the getUsers</h5>
+        <UserCard user={this.state.users} />
       </div>
     );
   }
